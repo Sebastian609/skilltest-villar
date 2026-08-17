@@ -1,5 +1,5 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import { StatusBadge } from '../../../components/ui/StatusBadge';
+import { useCharactersStore } from '../store/characters.store';
 import type { Character } from '../../../types/characters.types';
 
 interface CharacterCardProps {
@@ -7,43 +7,27 @@ interface CharacterCardProps {
 }
 
 export function CharacterCard({ character }: CharacterCardProps) {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-
-  const handleClick = () => {
-    const query = searchParams.get('q') || '';
-    const page = searchParams.get('page') || '1';
-    navigate(`/character/${character.id}?q=${encodeURIComponent(query)}&page=${page}`);
-  };
+  const openModal = useCharactersStore((s) => s.openModal);
 
   return (
     <button
       type="button"
-      onClick={handleClick}
-      className="group flex w-full items-center gap-4 rounded-lg border border-zinc-200 bg-white p-3 text-left transition-colors hover:border-zinc-300 hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:ring-offset-1"
+      onClick={() => openModal(character.id)}
+      className="group relative flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white text-left shadow-sm transition-all hover:border-emerald-300 hover:shadow-md hover:shadow-emerald-900/5 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2"
     >
-      <img
-        src={character.image}
-        alt={character.name}
-        className="h-16 w-16 flex-shrink-0 rounded-md object-cover"
-      />
-      <div className="min-w-0 flex-1">
-        <h3 className="truncate text-sm font-semibold text-zinc-900 group-hover:text-black">
+      <div className="aspect-square w-full overflow-hidden bg-gray-100">
+        <img
+          src={character.image}
+          alt={character.name}
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
+      <div className="flex flex-1 flex-col items-center gap-1.5 px-3 py-3">
+        <h3 className="w-full truncate text-center text-sm font-semibold text-gray-800 group-hover:text-emerald-700">
           {character.name}
         </h3>
-        <div className="mt-1">
-          <StatusBadge status={character.status} />
-        </div>
+        <StatusBadge status={character.status} />
       </div>
-      <svg
-        className="h-4 w-4 flex-shrink-0 text-zinc-300 transition-colors group-hover:text-zinc-500"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={2}
-        stroke="currentColor"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-      </svg>
     </button>
   );
 }

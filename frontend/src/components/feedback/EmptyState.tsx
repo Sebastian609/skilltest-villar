@@ -4,10 +4,10 @@ interface EmptyStateProps {
 
 export function EmptyState({ query }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-center justify-center py-16 text-center">
-      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-zinc-100">
+    <div className="flex flex-col items-center justify-center py-20 text-center">
+      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 ring-1 ring-inset ring-emerald-100">
         <svg
-          className="h-6 w-6 text-zinc-400"
+          className="h-7 w-7 text-emerald-400"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
@@ -20,12 +20,12 @@ export function EmptyState({ query }: EmptyStateProps) {
           />
         </svg>
       </div>
-      <p className="text-sm font-medium text-zinc-900">
+      <p className="text-sm font-medium text-gray-800">
         {query
           ? `No se encontraron resultados para "${query}"`
           : 'No hay personajes para mostrar'}
       </p>
-      <p className="mt-1 text-sm text-zinc-500">
+      <p className="mt-1 text-sm text-gray-400">
         Intenta con otro término de búsqueda
       </p>
     </div>

@@ -1,30 +1,14 @@
-import { useState, useEffect } from 'react';
-
 interface SearchBarProps {
-  onSearch: (query: string) => void;
-  initialValue?: string;
+  value: string;
+  onChange: (value: string) => void;
 }
 
-export function SearchBar({ onSearch, initialValue = '' }: SearchBarProps) {
-  const [value, setValue] = useState(initialValue);
-
-  useEffect(() => {
-    setValue(initialValue);
-  }, [initialValue]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      onSearch(value);
-    }, 300);
-
-    return () => clearTimeout(timer);
-  }, [value, onSearch]);
-
+export function SearchBar({ value, onChange }: SearchBarProps) {
   return (
     <div className="relative w-full">
       <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
         <svg
-          className="h-4 w-4 text-zinc-400"
+          className="h-4 w-4 text-gray-400"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={2}
@@ -40,9 +24,9 @@ export function SearchBar({ onSearch, initialValue = '' }: SearchBarProps) {
       <input
         type="text"
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
         placeholder="Buscar personajes..."
-        className="w-full rounded-lg border border-zinc-200 bg-white py-2.5 pl-10 pr-4 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-300"
+        className="w-full rounded-lg border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-emerald-400 focus:ring-1 focus:ring-emerald-300"
       />
     </div>
   );
