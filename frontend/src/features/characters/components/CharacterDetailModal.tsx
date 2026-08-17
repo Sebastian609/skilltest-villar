@@ -1,4 +1,5 @@
 import { Modal } from '../../../components/ui/Modal';
+import { LazyImage } from '../../../components/ui/LazyImage';
 import { StatusBadge } from '../../../components/ui/StatusBadge';
 import { Spinner } from '../../../components/ui/Spinner';
 import { ErrorMessage } from '../../../components/feedback/ErrorMessage';
@@ -44,10 +45,10 @@ function DetailContent({ character }: { character: Character }) {
   return (
     <div className="flex flex-col items-center text-center">
       <div className="mb-4 overflow-hidden rounded-xl ring-2 ring-emerald-100">
-        <img
+        <LazyImage
           src={character.image}
           alt={character.name}
-          className="h-40 w-40 object-cover"
+          className="h-40 w-40"
         />
       </div>
       <div className="mb-4">
