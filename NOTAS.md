@@ -13,14 +13,13 @@
 - **Zustand para estado global**: Se eligió zustand por su API mínima, ausencia de boilerplate (no providers ni context) y selectores performantes. El store centraliza: lista de personajes, filtros (name, page, status), estado del modal de detalle, y loading/error states. Las acciones `setSearchName` y `setStatus` resetean automáticamente la página a 1.
 - **useDebounce como hook custom**: Implementado sin librerías externas (useState + useEffect con clearTimeout). Se usa para debouncing de 300ms en el input de búsqueda, evitando requests innecesarios al backend.
 - **Modal en vez de ruta**: El detalle del personaje se muestra en un modal para preservar el contexto del usuario (búsqueda, filtros, página). Se cierra con ESC, click fuera, o botón X. Se usa `document.body.style.overflow = 'hidden'` para bloquear el scroll del fondo.
-- **Paleta de colores**: Blanco como fondo base, grises para jerarquía de texto y bordes, verde emerald como color de acento para acciones primarias, estados activos e indicadores de status.
+- **LazyImage con loader**: Componente reutilizable que muestra un spinner `emerald` sobre fondo `gray-100` mientras la imagen carga, y hace fade-in (`opacity-0 → opacity-100`, 300ms) al completar. En caso de error de carga, muestra un icono de imagen rota. Se usa tanto en `CharacterCard` (grid) como en `CharacterDetailModal` (detalle), mejorando la percepción de carga en conexiones lentas.
 - **Tailwind CSS v4**: Configurado via plugin de Vite, sin archivo de configuración separado. Utilidades de Tailwind directamente en JSX.
 
 ## Limitaciones y mejoras con más tiempo
 
 - Agregar tests unitarios (Vitest) y tests de integración (Cypress/Playwright).
 - Implementar cache con React Query / TanStack Query para deduplicar requests y manejar stale-while-revalidate.
-- Agregar lazy loading de imágenes y skeleton loaders para mejor percepción de carga.
 - Pagination con URL params persistidos (bookmarkable) para compartir links directos a páginas específicas.
 - Filtros combinados con URL search params para el mismo propósito.
 - Rate limiting y cache en el backend con Redis.
